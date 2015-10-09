@@ -1,2 +1,3 @@
 This is a web-based dashboard for CrowdOp, which is implemented by Java Play! framework
+- Java version >= 1.8
 =====================================
