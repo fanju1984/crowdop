@@ -9,7 +9,7 @@ import sg.edu.nus.comp.datastore.schema.*;
 import org.apache.commons.csv.*;
 
 /**
- * This class implments a data stores based on CSV files
+ * This class implements a data stores based on CSV files
  * 
  * @author Ju Fan
  *
