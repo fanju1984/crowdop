@@ -202,6 +202,8 @@ public class CrowdFill extends CrowdOp {
 		for (int i = 0; i < attributes.size(); i ++) {
 			String attribute = attributes.get(i);
 			Field field = inTable.getFieldByName(attribute);
+			if (field == null) throw new Exception ("Invalid attribute `" + attribute + "'");
+			System.out.println(attribute + "\t" + field + "\t" + inTable.getName());
 			Attribute attr = new Attribute(inTable.getName(), 
 					attribute, field.getType());
 			Predicate predicate = new Predicate(attr, ComparisonOp.EQUALS, null);

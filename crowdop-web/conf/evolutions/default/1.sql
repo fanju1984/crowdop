@@ -28,7 +28,7 @@ create table job (
   id                        bigint not null,
   folder                    varchar(255),
   name                      varchar(255),
-  op_json_str               varchar(255),
+  op_json_str               TEXT,
   price                     double,
   state                     varchar(255),
   tmp                       varchar(255),

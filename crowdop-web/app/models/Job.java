@@ -29,6 +29,8 @@ public class Job extends Model {
 
     public String folder; // the folder containing the job, e.g., batch number
     public String name;
+    
+    @Column(columnDefinition = "TEXT")
     public String opJsonStr; // the JSON string of the corresponding operator
     public Double price; // the price for crowdsourcing
     public String state;

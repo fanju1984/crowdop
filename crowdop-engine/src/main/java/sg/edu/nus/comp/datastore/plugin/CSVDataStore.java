@@ -25,6 +25,7 @@ public class CSVDataStore implements DataStore {
 			csvIter = CSVFormat.EXCEL.parse(in).iterator();
 			csvIter.hasNext();
 			csvIter.next();
+			
 		}
 
 		public boolean hasNext() {
@@ -33,9 +34,14 @@ public class CSVDataStore implements DataStore {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 			return false;
 		}
-
+		
+		public void remove() {
+			
+		}
+		
 		public Tuple next() {
 			CSVRecord record = csvIter.next();
 			int tid = Integer.parseInt(record.get(0));
