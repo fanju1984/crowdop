@@ -1,4 +1,4 @@
 This is the source code of the TKDE paper entitled "CrowdOp: Query Optimization for Declarative Crowdsourcing Systems" (link: http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=7052378)
 There are two sub-project in the folder: 
 1) crowdop-engine: the source of the backend-engine, which is responsible for storage, optimization, execution plan generation.
-2) crowdop-web: the source code of the front-end, which is responsible for crowdsourcing job management.
+2) crowdop-web: the source code of the front-end, which is a dashboard for crowdsourcing job management.
