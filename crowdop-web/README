@@ -1,4 +1,2 @@
-This is your new Play application
+This is a web-based dashboard for CrowdOp, which is implemented by Java Play! framework
 =====================================
-
-This file will be packaged with your application, when using `play dist`.
