@@ -1,0 +1,3 @@
+{
+	"image":{"variables":["image_url"],"template":"<image src='%s' style='height:250px;'>"}
+}

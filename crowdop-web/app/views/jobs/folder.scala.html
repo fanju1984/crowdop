@@ -1,0 +1,43 @@
+@(project: Project, job: Job)
+
+<div class="folder" data-folder-id="@folder">
+    <header>
+        @if(job.state == "running") {
+            <h3><strong><a href="#@routes.Tasks.list(job.id)" >@job.name</a> (@job.state):</strong> @job.getJobExplain()</h3>
+        } else {
+            <h3><strong>@job.name (@job.state):</strong> @job.getJobExplain()</h3>
+        }
+        @if(job.state == "pending") {
+        <dl class="options">
+            <dt>Options</dt>
+            
+            <dd>
+                @helper.form(action = routes.Jobs.execute, 'enctype -> "multipart/form-data") {
+                <input type="hidden" name="project" value="@project.id" >
+                <input type="hidden" name="job"     value="@job.id" >
+                <input type="submit" value="Execute the job!">                          
+            }
+            </dd>
+        </dl>
+        <span class="loader">Loading</span>
+        }
+    </header>
+    <ul class="list">
+        <li>
+            @if(job.opType == "Relation") {
+                <h4>Machine-based operation without crowdsourcing cost</h4>
+            } else {
+                <h4>Crowd-based operation at crowdsourcing price @job.price</h4>
+            }
+            <span class="assignedTo">@job.opType</span>
+        </li>
+        <li>
+        @if(job.getSuccessor() == null) {
+            <h4>This is the last job in the project</h4>
+        } else {
+            <h4>&nbsp;&nbsp;&nbsp;&nbsp;Result ==> @job.getSuccessor().name</h4>
+        }
+        </li>        
+    </ul>
+</div>
+

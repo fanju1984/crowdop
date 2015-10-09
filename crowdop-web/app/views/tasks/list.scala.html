@@ -1,0 +1,31 @@
+@(job: Job, involvedTasks: List[Task])
+
+<header>
+    <hgroup>
+        <h1>Job</h1>
+        <h2>@job.name</h2>
+    </hgroup>
+</header>
+
+<article  class="data" id="data">
+    <div class="projectAttr"><b>All the tasks involved in the @job.opType job:</b></div>
+    <table class="zebra-striped">
+        <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>Crowdsourcing Type</th>
+                <th>Worker Answers</th>
+            </tr>
+        </thead>
+        <tbody>
+        	@for(task <- involvedTasks) {
+            	<tr>
+                	<td><a href="@routes.Tasks.index(task.id)" target="_BLANK">@task.id</a></td>
+                	<td>@job.opType</td>
+                    <td><a href="#@routes.Tasks.assignment(task.id)">@task.getAssignments().size()</a></td>
+            	</tr>
+            }
+
+        </tbody>
+    </table>
+</article>

@@ -1,0 +1,39 @@
+@(task: Task, assignments: List[Assignment])
+
+<header>
+    <hgroup>
+        <h1>Task</h1>
+        <h2>@task.id</h2>
+    </hgroup>
+</header>
+
+<article  class="data" id="data">
+    <div class="projectAttr"><b>All the assignments involved in the task:</b></div>
+    <table class="zebra-striped">
+        <thead>
+            <tr>
+                <th>Worker ID</th>
+                <th>Answer</th>
+                <th>Assignment ID</th>
+                <th>Accept Time</th>
+                <th>Submit Time</th>
+            </tr>
+        </thead>
+        <tbody>
+        	@for(assignment <- assignments) {
+            	<tr>
+                	<td>@assignment.workerID</td>
+                	<td>
+                        @for(option <- assignment.getSelections()) {
+                            @option &nbsp;&nbsp;
+                        }   
+                    </td>
+                	<td>@assignment.assignmentID</td>
+                    <td>@assignment.acceptDateTime</td>
+                    <td>@assignment.submitDateTime</td>
+            	</tr>
+            }
+
+        </tbody>
+    </table>
+</article>

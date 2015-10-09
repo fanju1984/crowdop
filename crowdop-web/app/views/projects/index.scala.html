@@ -1,0 +1,104 @@
+@(project: Project, involvedJobs: List[Job], datasources: List[DataSource])
+
+<header>
+    <hgroup>
+        <h1>Project</h1>
+        <h2>@project.name</h2>
+    </hgroup>
+    @if(project.state==Project.STATE_INIT) {
+    <dl class="menubutton">
+        <dt><a href="@routes.Projects.genQueryPlan(project.id)">Run Query!</a></dt>
+    </dl>
+    <dl class="menu">
+        <dt>Edit Query</dt>
+        <dd>
+            <div class="wrap">
+                <div class="list">
+                    <dl>
+                        @helper.form(action = routes.Projects.updateQueryStat, 'enctype -> "multipart/form-data") {
+                            <input type="hidden" name="project" value="@project.id" >
+                            <div>Crowdsourcing Query: </div><br>
+                            <textarea id="querystat" class="text" cols="40" rows ="5" name="querystat">@project.queryStat</textarea>
+                            <br><br>
+                            <span>Destination: &nbsp;&nbsp; </span>
+                            @if(project.destDataSource == null) {
+                                <select name="destination">
+                            } else {
+                                <select name="destination" value="@project.destDataSource.id">
+                            }
+                                @for(datasource <- datasources) {
+                                    @if(project.destDataSource != null && 
+                                        datasource.id == project.destDataSource.id) {
+                                        <option value="@datasource.id" selected="selected">@datasource.name</option>
+                                    }
+                                    <option value="@datasource.id">@datasource.name</option>
+                                }
+                            </select>
+                            <div>
+                                <br><input type="submit">
+                            </div>                          
+                        }
+                    </dl>
+                </div>
+            </div>
+        </dd>
+    </dl>
+    <dl class="menu">
+        <dt>Edit Price</dt>
+        <dd>
+            <div class="wrap">
+                <div class="list">
+                    <dl>
+                        @helper.form(action = routes.Projects.updatePrices, 'enctype -> "multipart/form-data") {
+                            <input type="hidden" name="project" value="@project.id" >
+                            <div>
+                            <span class="forminput">CSelect Base</span><input type="text" name="cselectBase" value="@project.priceCSelectBase">
+                            </div>
+                            <span class="forminput">CSelect Inc </span><input type="text" name="cselectInc" value="@project.priceCSelectInc"><br>
+                            <span class="forminput">CJoin Base</span><input type="text" name="cjoinBase" value="@project.priceCJoinBase"><br>
+                            <span class="forminput">CJoin Inc</span><input type="text" name="cjoinInc" value="@project.priceCJoinInc"><br>
+                            <span class="forminput">CFill Base</span><input type="text" name="cfillBase" value="@project.priceCFillBase"><br>
+                            <span class="forminput">CFill Inc</span><input type="text" name="cfillInc" value="@project.priceCFillInc"><br>
+                            <div>
+                                <br><input type="submit">
+                            </div>                          
+                        }
+                    </dl>
+                </div>
+            </div>
+        </dd>
+    </dl>
+    
+    }
+</header>
+
+<article  class="data" id="data">
+    <div class="projectAttr"><b>Query:</b> @project.queryStat</div>
+    <div class="projectAttr"><b>Prices for crowdsourcing operators:</b></div>
+    <table class="zebra-striped">
+        <thead>
+            <tr>
+                <th>CrowdSelect Base</th>
+                <th>CrowdSelect Inc</th>
+                <th>CrowdJoin Base</th>
+                <th>CrowdJoin Inc</th>
+                <th>CrowdFill Base</th>
+                <th>CrowdFill Inc</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@project.priceCSelectBase</td>
+                <td>@project.priceCSelectInc</td>
+                <td>@project.priceCJoinBase</td>
+                <td>@project.priceCJoinInc</td>
+                <td>@project.priceCFillBase</td>
+                <td>@project.priceCFillInc</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <div class="projectAttr"><b>Crowdsourcing Jobs:</b></div>
+    @views.html.jobs.index(project, involvedJobs)
+</article>
+

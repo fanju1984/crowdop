@@ -1,0 +1,153 @@
+
+# Users
+
+- &bob !!models.User
+    email:      bob@example.com
+    name:       Bob
+    password:   bob
+
+- &jane !!models.User
+    email:      jane@example.com
+    name:       Jane
+    password:   jane
+
+- &jeff !!models.User
+    email:      jeff@example.com
+    name:       Jeff
+    password:   jeff
+
+# DataSources
+
+- &food_image !!models.DataSource
+    name:      food_image
+    type:   data
+    htmlTemplate:       <span>Food in this <strong>image</strong></span><img src="${image_url}" />
+    owner:   *bob
+
+- &food_calorie !!models.DataSource
+    name:      food_calorie
+    type:   data
+    htmlTemplate:       <table><tbody><tr><td>${dish_name}</td><td>${calorie}</td><td>${ingredient}</td></tr></tbody></table>
+    owner:   *bob
+
+- &mc_food !!models.DataSource
+    name:      mcdonalds_food
+    type:   data
+    htmlTemplate:       <span>Food in this <strong>image</strong></span><img src="${image_url}" />
+    owner:   *bob
+- &mc_food_category !!models.DataSource
+    name:   mc_food_category
+    type:   data
+    htmlTemplate:  <span>Food in this <strong>image</strong></span><img src="${image_url}" />
+    owner:  *bob
+- &food_link !!models.DataSource
+    name:      food_link
+    type:   data
+    htmlTemplate:       <span>Vehicle in the <strong>image</strong> </span><img src="${image_url}" />
+    owner:   *bob
+
+# Projects
+
+- &csquery1 !!models.Project
+    name:       Filter Food
+    queryStat:     select * from food_image where food_image.restaurant = 'mcdonalds' and food_image.is_vegetarian = 'no'
+    owner:  *bob
+    priceCSelectBase:   0.01
+    priceCSelectInc:    0.02
+    priceCJoinBase:     0.01
+    priceCJoinInc:      0.005
+    priceCFillBase:     0.01
+    priceCFillInc:      0.005
+    destDataSource:     *mc_food
+    
+- &cfquery1 !!models.Project
+    name:       Fill Missings
+    queryStat:     select mcdonalds_food.category from mcdonalds_food
+    owner:  *bob
+    priceCSelectBase:   0.01
+    priceCSelectInc:    0.005
+    priceCJoinBase:     0.01
+    priceCJoinInc:      0.005
+    priceCFillBase:     0.01
+    priceCFillInc:      0.005
+    destDataSource:     *mc_food_category
+    
+
+- &cjquery1 !!models.Project
+    name:       Link Food Info
+    queryStat:     select * from mc_food_category, food_calorie where mc_food_category.dish_name = food_calorie.dish_name
+    owner:  *bob
+    priceCSelectBase:   0.01
+    priceCSelectInc:    0.005
+    priceCJoinBase:     0.01
+    priceCJoinInc:      0.005
+    priceCFillBase:     0.01
+    priceCFillInc:      0.005
+    destDataSource:     *food_link
+    
+
+
+
+
+# Jobs
+
+#- &csjob1 !!models.Job
+#    name:       CSelect Job 1
+#    questionType:     single-choice
+#    execPlan: execPlan-instance
+#    price:  0.1
+#    iterNum:    0
+#    assignedProject:    *csquery1
+#    outputSource:  *tmp1
+#    inputSources:
+#        - *image    
+
+# TaskOptions
+
+#- &yesoption !!models.TaskOption
+#    name:   0
+#    text:   "Yes, it is"
+#- &nooption !!models.TaskOption
+#    name:   1
+#    text:   "No, it isn't"
+
+# Tasks
+
+#- &csjobtask1 !!models.Task
+#    batch:  HIT-1
+#    dataKey:    datakey-1
+#    questionStem:   "<img src='https://s3.amazonaws.com/lobbdawg/mturk/broome1.jpg' >"
+#    options:
+ #       - *yesoption
+ #       - *nooption
+  #  assignedJob:    *csjob1
+#- &csjobtask2 !!models.Task
+#    batch:  HIT-1
+#    dataKey:    datakey-1
+##    questionStem:   "<img src='https://s3.amazonaws.com/lobbdawg/mturk/broome2.jpg' >"
+#    options:
+#        - *yesoption
+#        - *nooption
+#    assignedJob:    *csjob1
+
+# Assignments
+
+#- &csjobtask1asg1 !!models.Assignment
+#    assignedTask:   *csjobtask1
+#    workerID:   workor-1
+#    assignmentID:   asg-1
+#    acceptDateTime: 2011-11-18
+#    submitDataTime: 2011-11-18
+#    selectedOptions:
+#        - *yesoption
+#    freetext:   worker-1 comments
+
+#- &csjobtask1asg2 !!models.Assignment
+#    assignedTask:   *csjobtask1
+#    workerID:   workor-2
+#    assignmentID:   asg-2
+#    acceptDateTime: 2011-11-21
+#    submitDataTime: 2011-11-20
+#    selectedOptions:
+#        - *nooption
+#    freetext:   worker-2 comments

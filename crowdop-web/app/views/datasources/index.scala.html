@@ -1,0 +1,86 @@
+@(datasource: DataSource, headers: List[String], records: List[List[String]], page: Integer)
+
+<header>
+    <hgroup>
+        <h1>Data Table</h1>
+        <h2>@datasource.name</h2>
+    </hgroup>
+    <dl class="menu">
+        <dt>Import Data</dt>
+        <dd>
+            <div class="wrap">
+                <div class="list">
+                    <dl data-user-id="@datasource.owner.email">
+                        @helper.form(action = routes.Datasources.upload, 'enctype -> "multipart/form-data") {
+                            <input type="hidden" name="datasource" value="@datasource.id" >
+                            <input type="file" name="upfile">
+                            <input type="submit">                          
+                        }
+                    </dl>
+                </div>
+            </div>
+        </dd>
+    </dl>
+    <dl class="menu">
+        <dt>Edit Template</dt>
+        <dd>
+            <div class="wrap">
+                <div class="list">
+                    <dl data-user-id="@datasource.owner.email">
+                        @helper.form(action = routes.Datasources.updateHtmlTemplate, 'enctype -> "multipart/form-data") {
+                            <input type="hidden" name="datasource" value="@datasource.id" >
+                            <textarea id="template" class="text" cols="40" rows ="5" name="template">@datasource.htmlTemplate</textarea>
+                            <div>
+                                <br><input type="submit">
+                            </div>                          
+                        }
+                    </dl>
+                </div>
+            </div>
+        </dd>
+    </dl>
+</header>
+
+<article  class="data" id="data">
+    <div class="projectAttr"><b>Data Records</b> (View <a href="#@routes.Datasources.summary(datasource.id,0)">Data Summary</a>)</div>
+    <table class="zebra-striped">
+        <thead>
+            <tr>
+                @headers.map { header =>
+                    <th>@header</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for(record <- records) {
+                <tr>
+                    @for(value <- record) {
+                        <td>@value</td>
+                    }
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <div id="pagination" class="pagination">
+        <ul>
+            @if(page > 0) {
+                <li class="prev">
+                    <a href="#@routes.Datasources.index(datasource.id,(page - 1))">&larr; Previous</a>
+                </li>
+            } else {
+                <li class="prev disabled">
+                    <a>&larr; Previous</a>
+                </li>
+            }
+            <li class="current">
+                <a>Page @(page + 1)</a>
+            </li>
+            <li class="next">
+                <a href="#@routes.Datasources.index(datasource.id,(page + 1))">Next &rarr;</a>
+            </li>
+                
+        </ul>
+    </div>
+</article>
+

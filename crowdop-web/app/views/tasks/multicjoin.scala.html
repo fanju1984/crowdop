@@ -1,0 +1,77 @@
+@(predStr: String, task: Task)
+
+<title></title>
+<link href="https://s3.amazonaws.com/mturk-public/bs30/css/bootstrap.min.css" rel="stylesheet" />
+<section class="container" id="Other" style="margin-bottom:15px; padding: 10px 10px; font-family: Verdana, Geneva, sans-serif; color:#333333; font-size:0.9em;">
+<meta content="no-cache" http-equiv="pragma" />
+<meta content="no-cache" http-equiv="cache-control" />
+<meta content="0" http-equiv="expires" />
+<meta content="keyword1,h,keyword3" http-equiv="keywords" />
+<meta content="This is my page" http-equiv="description" /><!--
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    -->
+<style type="text/css">.warning001 {
+        color:#F00;
+        font-size:small;
+        font-weight:bold;
+}
+</style>
+<div class="warning001" id="preview" style="margin-bottom:5pt">Please Check &quot;Automatically accept the next HIT&quot; for easily getting the next HIT.</div>
+
+<div class="row col-xs-12 col-md-12"><!-- Instructions -->
+<div class="panel panel-primary">
+<div class="panel-heading"><strong>Instructions</strong></div>
+
+<div class="panel-body">
+<p>Thank you for working on this linking task. </p>
+
+<ul>
+    <li>You are presented with two <strong>items</strong> (e.g., image, product, etc.) and a couple of <strong>linking conditions</strong>.</li>
+    <li>If you think the two items can be linked according to the conditions, please choose <strong>YES</strong>; otherwise, choose <strong>NO</strong>.</li> 
+    <li>Please provide your <strong>reasons</strong> of choices if necessary, in order to avoid our incorrect judgement.</li>
+</ul>
+</div>
+</div>
+
+<div id="feedback">
+
+<div class="panel panel-success">
+<div class="panel-heading"><strong>Linking Task</strong>: Does item A and item B can be linked according to the conditions</div>
+<div id="task" class="panel-body">
+    <div id="question">
+        <div id="question-title" style="margin-bottom:5pt">
+            <strong>Data Item A: </strong>
+        </div>
+        <div id="question-content" style="margin-bottom:10pt;margin-left:10pt">
+            @Html(task.getTupleHtml(0))
+        </div>
+        <div><strong>Check all the item B satisfying the conditions</strong></div>
+    </div>
+    <div id="answer" style="margin-bottom:10pt">
+        <strong>Linking Conditions: </strong>@predStr
+    </div>
+    @helper.form(action = routes.Tasks.submitAnswer, 'enctype -> "multipart/form-data") {
+    <div id="choice">
+        <input type="hidden" name="checksize" value="@task.getOptions.size()">
+        @for((option,i) <- task.getOptions.zipWithIndex) {
+            <input type="checkbox" name="result@i" value="@option.get(0)">@Html(option.get(1))
+        }    
+        <input type="hidden" name="taskId" value="@task.id" >
+        <input type="hidden" name="workerId" value="test_worker">
+        <div style="margin-bottom:5pt;">Please provide any comments you may have below. We appreciate your input.</div>
+        <div><textarea cols="60" name="comments" rows="2"></textarea></div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <input class="input-submit" id="sub01" name="submit" type="submit" value="Submit"/>
+    }
+</div>
+</div>
+
+
+
+</div>
+</div>
+</section>
+

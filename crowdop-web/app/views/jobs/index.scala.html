@@ -1,0 +1,8 @@
+@(project: Project, jobs: List[Job])
+
+<article  class="tasks" id="tasks">
+    @jobs.map { job =>
+        @views.html.jobs.folder(project, job)    
+    }
+</article>
+

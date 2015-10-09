@@ -1,0 +1,53 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+
+# Login page
+GET     /login                  controllers.Application.login()
+
+# Authenticate
+POST    /login                      controllers.Application.authenticate()
+
+# Logout
+GET     /logout                     controllers.Application.logout()
+
+POST    /upload                                 controllers.Datasources.upload()
+
+# Project-related projects
+POST    /projects                   controllers.Projects.add()
+GET		/projects/:project 			controllers.Projects.index(project:Long)
+DELETE  /projects/:project          controllers.Projects.delete(project: Long)
+PUT     /projects/:project          controllers.Projects.rename(project: Long)
+POST	/projects/updatequerystat	controllers.Projects.updateQueryStat()
+POST	/projects/updateprices	controllers.Projects.updatePrices()
+GET		/projects/:project/genqueryplan		controllers.Projects.genQueryPlan(project: Long)
+POST    /upload                                 controllers.Datasources.upload()
+POST	/uploadSummary						controllers.Datasources.uploadSummary()
+
+
+# DataSource-related pages
+GET     /datasources/:datasource/data/:page           controllers.Datasources.index(datasource: Long, page: Integer)
+GET     /datasources/:datasource/summary/:page           controllers.Datasources.summary(datasource: Long, page: Integer)
+
+POST    /datasources                   controllers.Datasources.add()
+DELETE  /datasources/:datasource          controllers.Datasources.delete(datasource: Long)
+PUT     /datasources/:datasource          controllers.Datasources.rename(datasource: Long)
+POST	/datasources/upldatehtmltemplate	controllers.Datasources.updateHtmlTemplate()
+
+POST	/jobs/execute			controllers.Jobs.execute()
+
+# Task-related pages
+GET		/tasks/list/:job		controllers.Tasks.list(job: Long)
+GET		/tasks/:task		controllers.Tasks.index(task: Long)
+POST	/tasks/submitAnswer		controllers.Tasks.submitAnswer()
+GET		/tasks/:task/assignment		controllers.Tasks.assignment(task: Long)
+
+# The routes of javascripts
+GET     /assets/javascripts/routes          controllers.Application.javascriptRoutes()
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

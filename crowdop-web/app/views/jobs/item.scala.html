@@ -1,0 +1,6 @@
+@(job: Job)
+
+<li data-task-id="@job.id">
+    <h4><b>@job.name:</b> @job.getJobExplain() </h4>
+    <span class="assignedTo">@job.opType</span>
+</li>

@@ -1,0 +1,7 @@
+@(datasource: DataSource)
+
+<li data-datasource="@datasource.id">
+    <a class="name" href="#@routes.Datasources.index(datasource.id,0)">@datasource.name</a>
+    <button class="delete" href="#">Delete</button>
+    <span class="loader">Loading</span>
+</li>

@@ -1,0 +1,18 @@
+@(datasources: List[DataSource])
+
+<li data-group="datasource-group">
+    <span class="toggle"></span>
+    <h4 class="groupName">Data Table</h4>
+    <span class="loader">Loading</span>
+    <dl class="options">
+        <dt>Options</dt>
+        <dd>
+            <button class="newDatasource">New Data Table</button>
+        </dd>
+    </dl>
+    <ul>
+        @datasources.map { datasource =>
+            @views.html.datasources.item(datasource)
+        }
+    </ul>
+</li>
