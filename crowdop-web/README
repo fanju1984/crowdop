@@ -1,3 +1,13 @@
 This is a web-based dashboard for CrowdOp, which is implemented by Java Play! framework
 - Java version >= 1.8
-=====================================
+======================================
+
+When set up java play environment,
+add the following configuration to the conf/application.conf:
+application.baseUrl="https://dbpcm.d1.comp.nus.edu.sg:80/"
+-- in order to support https, you should have a keystore.jks (e.g., use ssh-keygen to self generate one)
+https.keyStore=/path/to/keystore.jks
+https.keyStorePassword=yourpassword
+
+after these configuration, go to the root dir of your play
+then, use "play -Dhttp.port=disabled -Dhttps.port=80 run" command and you can access to the baseUrl on web browser
